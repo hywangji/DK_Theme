@@ -1,6 +1,9 @@
 import { Suspense, lazy } from 'react'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { toast } from 'sonner'
+import { getSigninStatus, submitSignin } from '@/lib/api/services/signin'
 import {
   Card,
   CardContent,
@@ -10,7 +13,7 @@ import {
 import { useAuth } from '@/features/auth/auth-context'
 import { getTrafficLogs } from '@/lib/api/services/traffic'
 import { formatBytes, formatCurrency, formatDateTime } from '@/lib/format'
-import { Activity, CalendarClock, CreditCard, Gauge, Layers3, Sparkles, TrendingUp, Zap } from 'lucide-react'
+import { Activity, CalendarClock, CreditCard, Gauge, Gift, Layers3, Sparkles, TrendingUp, Zap } from 'lucide-react'
 
 const SectionCards = lazy(() => import('@/components/section-cards').then((module) => ({ default: module.SectionCards })))
 const ChartAreaInteractive = lazy(() => import('@/components/chart-area-interactive').then((module) => ({ default: module.ChartAreaInteractive })))
@@ -68,7 +71,23 @@ function formatDashboardUpdatedAt(date: Date) {
 
 export function DashboardPage() {
   const { user, subscribe } = useAuth()
+  const queryClient = useQueryClient()
   const trafficLogsQuery = useQuery({ queryKey: ['traffic-logs'], queryFn: getTrafficLogs })
+  const signinStatusQuery = useQuery({ queryKey: ['signin-status'], queryFn: getSigninStatus, retry: false, staleTime: 60_000 })
+  const signinMutation = useMutation({
+    mutationFn: submitSignin,
+    onSuccess: async (reward) => {
+      toast.success(reward.message || `签到成功，获得 ${reward.traffic_gb} GB 流量`)
+      await queryClient.invalidateQueries({ queryKey: ['signin-status'] })
+      // 用户信息保存在认证上下文中，重新加载以同步套餐流量总额。
+      window.setTimeout(() => window.location.reload(), 1200)
+    },
+    onError: (error: unknown) => {
+      const responseMessage = (error as { response?: { data?: { message?: string } } })?.response?.data?.message
+      toast.error(responseMessage || (error instanceof Error ? error.message : '签到失败，请稍后重试'))
+      void queryClient.invalidateQueries({ queryKey: ['signin-status'] })
+    },
+  })
   const trafficLogs = trafficLogsQuery.data ?? []
 
   const planName = subscribe?.plan ?? user?.plan ?? '--'
@@ -109,7 +128,7 @@ export function DashboardPage() {
                 </CardDescription>
               </div>
 
-              <div className='grid flex-1 content-end gap-2.5 sm:grid-cols-2 xl:grid-cols-3'>
+              <div className='grid flex-1 content-end gap-2.5 sm:grid-cols-2 xl:grid-cols-4'>
                 <div className='rounded-2xl border border-slate-200/80 bg-white/75 px-3.5 py-4 shadow-sm dark:border-border/70 dark:bg-background/35'>
                   <div className='flex min-h-[92px] flex-col'>
                     <div className='flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.14em] text-slate-500 dark:text-muted-foreground'>
@@ -137,6 +156,29 @@ export function DashboardPage() {
                     </div>
                     <div className='mt-2.5 text-base font-semibold text-slate-900 dark:text-foreground'>{formatCurrency(balance)}</div>
                     <div className='mt-auto pt-2 text-xs text-slate-500 dark:text-muted-foreground'>返利 {formatCurrency(commissionBalance)}</div>
+                  </div>
+                </div>
+
+                <div className='rounded-2xl border border-primary/20 bg-primary/5 px-3.5 py-4 shadow-sm dark:border-primary/25 dark:bg-primary/10'>
+                  <div className='flex min-h-[92px] flex-col gap-2'>
+                    <div className='flex items-center gap-2 text-[11px] font-medium tracking-[0.14em] text-slate-500 dark:text-muted-foreground'>
+                      <Gift className='size-3.5 text-primary' /> 每日签到
+                    </div>
+                    <div className='text-sm font-semibold text-slate-900 dark:text-foreground'>
+                      {signinStatusQuery.isPending ? '正在查询签到状态…' : signinStatusQuery.isError ? '签到服务暂不可用' : signinStatusQuery.data?.can_signin ? '签到领取随机流量' : '今日签到已完成'}
+                    </div>
+                    <div className='mt-auto flex flex-wrap items-center justify-between gap-2'>
+                      <span className='text-xs text-slate-500 dark:text-muted-foreground'>
+                        {signinStatusQuery.data ? `今日 ${signinStatusQuery.data.today_count} / ${signinStatusQuery.data.daily_limit} 次` : '无需绑定 Telegram'}
+                      </span>
+                      <Button
+                        size='sm'
+                        disabled={!signinStatusQuery.data?.can_signin || signinStatusQuery.isFetching || signinMutation.isPending}
+                        onClick={() => signinMutation.mutate()}
+                      >
+                        {signinMutation.isPending ? '签到中…' : signinStatusQuery.isError ? '暂不可用' : signinStatusQuery.data?.can_signin ? '立即签到' : '已签到'}
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </div>
