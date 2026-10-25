@@ -40,8 +40,8 @@ import { copyText } from '@/lib/clipboard'
 import { appConfig } from '@/lib/config'
 
 type DeviceType = 'desktop' | 'mobile'
-type DesktopPlatform = 'windows' | 'mac-intel' | 'mac-apple-silicon'
-type MobilePlatform = 'ios' | 'android'
+type DesktopPlatform = 'windows' | 'mac-apple-silicon' | 'linux' | 'openwrt'
+type MobilePlatform = 'ios' | 'android' | 'android-tv'
 type PlatformFilter = DesktopPlatform | MobilePlatform
 
 type ClientDownloadOption = {
@@ -71,23 +71,49 @@ type ClientItem = {
 
 const desktopPlatformLabels: Record<DesktopPlatform, string> = {
   windows: 'Windows',
-  'mac-intel': 'Mac (Intel)',
-  'mac-apple-silicon': 'Mac (Apple Silicon)',
+  'mac-apple-silicon': 'macOS (M 系列)',
+  linux: 'Linux',
+  openwrt: 'OpenWrt',
 }
 
 const mobilePlatformLabels: Record<MobilePlatform, string> = {
   ios: 'iOS',
   android: 'Android',
+  'android-tv': 'Android TV',
 }
+
+/* Rhodes Island 下载地址：新版 Mihomo 优先，旧版保留供用户选择。 */
+const rhodesDownloads = {
+  windows: [
+    { label: '新版 Mihomo（推荐）', href: 'https://nmm.li/newwin' },
+    { label: '旧版内核 1', href: 'https://nmm.li/win' },
+    { label: '旧版内核 2', href: 'https://nmm.li/oldwin' },
+    { label: '旧版内核 3', href: 'https://nmm.li/win3' },
+  ],
+  mac: [
+    { label: '新版 Mihomo（推荐）', href: 'https://nmm.li/newmac' },
+    { label: '旧版内核 1', href: 'https://nmm.li/mac' },
+    { label: '旧版内核 2', href: 'https://nmm.li/oldmac' },
+    { label: '旧版内核 3', href: 'https://nmm.li/mac3' },
+  ],
+  android: [
+    { label: '新版 Mihomo（推荐）', href: 'https://nmm.li/newandroid' },
+    { label: '旧版内核 1', href: 'https://nmm.li/android' },
+    { label: '旧版内核 2', href: 'https://nmm.li/oldandroid' },
+    { label: '旧版内核 3', href: 'https://nmm.li/android3' },
+  ],
+  tv: 'https://nmm.li/tv',
+  linux: 'https://nmm.li/linux',
+  openwrt: 'https://nmm.li/op',
+}
+
+/* 待确认客户端的真实 URL Scheme 后启用；不要猜测导入协议。 */
+const rhodesSchemeBuilder: ((url: string) => string) | undefined = undefined
 
 const v2rayNDownloads: ClientDownloadOption[] = [
   {
     label: 'Windows',
     href: appConfig.downloads.v2rayN.windows,
-  },
-  {
-    label: 'Mac Intel 芯片',
-    href: appConfig.downloads.v2rayN.macIntel,
   },
   {
     label: 'Mac M 芯片',
@@ -101,16 +127,13 @@ const clashDownloads: ClientDownloadOption[] = [
     href: appConfig.downloads.clash.windows,
   },
   {
-    label: 'Mac Intel 芯片',
-    href: appConfig.downloads.clash.macIntel,
-  },
-  {
     label: 'Mac M 芯片',
     href: appConfig.downloads.clash.macAppleSilicon,
   },
 ]
 
 const badgeClassMap: Record<string, string> = {
+  官方客户端: 'border-cyan-200 bg-cyan-50 text-cyan-800 dark:border-cyan-400/30 dark:bg-cyan-400/10 dark:text-cyan-300',
   推荐: 'border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-500/30 dark:bg-emerald-500/10 dark:text-emerald-300',
   iOS: 'border-sky-200 bg-sky-50 text-sky-700 dark:border-sky-500/30 dark:bg-sky-500/10 dark:text-sky-300',
   'Mac (Apple Silicon)': 'border-violet-200 bg-violet-50 text-violet-700 dark:border-violet-500/30 dark:bg-violet-500/10 dark:text-violet-300',
@@ -118,6 +141,94 @@ const badgeClassMap: Record<string, string> = {
 }
 
 const clients: ClientItem[] = [
+  /* 官方客户端置顶；按系统只显示对应版本。 */
+  {
+    name: 'Rhodes Island',
+    platform: 'Windows',
+    summary: 'Rhodes Island 官方Windows客户端，推荐新版 Mihomo，旧版仍可下载。',
+    primary: '选择版本下载',
+    link: rhodesDownloads.windows[0].href,
+    downloads: rhodesDownloads.windows,
+    badges: ['推荐', '官方客户端'],
+    supportsScheme: Boolean(rhodesSchemeBuilder),
+    schemeLabel: '一键导入',
+    schemeBuilder: rhodesSchemeBuilder,
+    importHint: '优先选择新版 Mihomo；需要其他内核可在下载菜单中选择旧版。',
+    deviceTypes: ['desktop'],
+    platforms: ['windows'],
+  },
+  {
+    name: 'Rhodes Island',
+    platform: 'macOS (M 系列)',
+    summary: 'Rhodes Island 官方macOS M 系列客户端，推荐新版 Mihomo，旧版仍可下载。',
+    primary: '选择版本下载',
+    link: rhodesDownloads.mac[0].href,
+    downloads: rhodesDownloads.mac,
+    badges: ['推荐', '官方客户端'],
+    supportsScheme: Boolean(rhodesSchemeBuilder),
+    schemeLabel: '一键导入',
+    schemeBuilder: rhodesSchemeBuilder,
+    importHint: '优先选择新版 Mihomo；需要其他内核可在下载菜单中选择旧版。',
+    deviceTypes: ['desktop'],
+    platforms: ['mac-apple-silicon'],
+  },
+  {
+    name: 'Rhodes Island',
+    platform: 'Android',
+    summary: 'Rhodes Island 官方Android客户端，推荐新版 Mihomo，旧版仍可下载。',
+    primary: '选择版本下载',
+    link: rhodesDownloads.android[0].href,
+    downloads: rhodesDownloads.android,
+    badges: ['推荐', '官方客户端'],
+    supportsScheme: Boolean(rhodesSchemeBuilder),
+    schemeLabel: '一键导入',
+    schemeBuilder: rhodesSchemeBuilder,
+    importHint: '优先选择新版 Mihomo；需要其他内核可在下载菜单中选择旧版。',
+    deviceTypes: ['mobile'],
+    platforms: ['android'],
+  },
+  {
+    name: 'Rhodes Island',
+    platform: 'Linux',
+    summary: 'Rhodes Island 官方 Linux Mihomo 客户端。',
+    primary: '下载客户端',
+    link: rhodesDownloads.linux,
+    badges: ['推荐', '官方客户端'],
+    supportsScheme: Boolean(rhodesSchemeBuilder),
+    schemeLabel: '一键导入',
+    schemeBuilder: rhodesSchemeBuilder,
+    importHint: '下载新版 Mihomo 客户端后，复制订阅链接并在客户端中导入。',
+    deviceTypes: ['desktop'],
+    platforms: ['linux'],
+  },
+  {
+    name: 'Rhodes Island',
+    platform: 'OpenWrt',
+    summary: 'Rhodes Island 官方 OpenWrt Mihomo 客户端。',
+    primary: '下载客户端',
+    link: rhodesDownloads.openwrt,
+    badges: ['推荐', '官方客户端'],
+    supportsScheme: Boolean(rhodesSchemeBuilder),
+    schemeLabel: '一键导入',
+    schemeBuilder: rhodesSchemeBuilder,
+    importHint: '下载新版 Mihomo 客户端后，复制订阅链接并在客户端中导入。',
+    deviceTypes: ['desktop'],
+    platforms: ['openwrt'],
+  },
+  {
+    name: 'Rhodes Island',
+    platform: 'Android TV',
+    summary: 'Rhodes Island 官方 Android TV Mihomo 客户端。',
+    primary: '下载客户端',
+    link: rhodesDownloads.tv,
+    badges: ['推荐', '官方客户端'],
+    supportsScheme: Boolean(rhodesSchemeBuilder),
+    schemeLabel: '一键导入',
+    schemeBuilder: rhodesSchemeBuilder,
+    importHint: '下载新版 Mihomo 客户端后，复制订阅链接并在客户端中导入。',
+    deviceTypes: ['mobile'],
+    platforms: ['android-tv'],
+  },
   {
     name: 'v2rayN',
     platform: 'Windows / macOS',
@@ -127,10 +238,10 @@ const clients: ClientItem[] = [
     link: 'https://github.com/2dust/v2rayN/releases',
     downloads: v2rayNDownloads,
     docs: '/knowledge#v2rayn',
-    badges: ['推荐'],
-    importHint: '下载按钮已按 Windows、Mac Intel、Mac M 芯片区分，可直接选择对应版本。',
+    badges: [],
+    importHint: '下载按钮可选择 Windows 或 Mac M 系列版本。',
     deviceTypes: ['desktop'],
-    platforms: ['windows', 'mac-intel', 'mac-apple-silicon'],
+    platforms: ['windows', 'mac-apple-silicon'],
   },
   {
     name: 'Clash',
@@ -146,7 +257,7 @@ const clients: ClientItem[] = [
     schemeBuilder: (url) => `clash://install-config?url=${encodeURIComponent(url)}&name=${encodeURIComponent(`${appConfig.appName}订阅`)}`,
     importHint: '已支持 Clash Scheme，可快速拉起并导入配置。',
     deviceTypes: ['desktop'],
-    platforms: ['windows', 'mac-intel', 'mac-apple-silicon'],
+    platforms: ['windows', 'mac-apple-silicon'],
   },
   {
     name: 'Shadowrocket',
@@ -251,14 +362,16 @@ export function ClientsPage() {
     if (deviceType === 'desktop') {
       return [
         { value: 'windows' as const, label: desktopPlatformLabels.windows },
-        { value: 'mac-intel' as const, label: desktopPlatformLabels['mac-intel'] },
         { value: 'mac-apple-silicon' as const, label: desktopPlatformLabels['mac-apple-silicon'] },
+        { value: 'linux' as const, label: desktopPlatformLabels.linux },
+        { value: 'openwrt' as const, label: desktopPlatformLabels.openwrt },
       ]
     }
 
     return [
       { value: 'ios' as const, label: mobilePlatformLabels.ios },
       { value: 'android' as const, label: mobilePlatformLabels.android },
+      { value: 'android-tv' as const, label: mobilePlatformLabels['android-tv'] },
     ]
   }, [deviceType])
 
@@ -280,11 +393,11 @@ export function ClientsPage() {
   }, [deviceType, platformFilter])
 
   useEffect(() => {
-    if (deviceType === 'desktop' && !['windows', 'mac-intel', 'mac-apple-silicon'].includes(platformFilter)) {
+    if (deviceType === 'desktop' && !['windows', 'mac-apple-silicon', 'linux', 'openwrt'].includes(platformFilter)) {
       setPlatformFilter('windows')
     }
 
-    if (deviceType === 'mobile' && !['ios', 'android'].includes(platformFilter)) {
+    if (deviceType === 'mobile' && !['ios', 'android', 'android-tv'].includes(platformFilter)) {
       setPlatformFilter('ios')
     }
   }, [deviceType, platformFilter])
@@ -436,7 +549,7 @@ export function ClientsPage() {
                   const Icon = client.icon ?? IconDeviceDesktop
                   return (
                     <div
-                      key={client.name}
+                      key={`${client.name}-${client.platform}`}
                       className='flex h-full flex-col rounded-2xl border border-slate-200/90 bg-slate-50/85 p-5 shadow-sm dark:border-border/70 dark:bg-background/35 dark:shadow-none'
                     >
                       <div className='flex items-start justify-between gap-4'>
@@ -500,12 +613,17 @@ export function ClientsPage() {
                                 ))}
                               </DropdownMenuContent>
                             </DropdownMenu>
-                          ) : (
+                          ) : client.link.trim() ? (
                             <Button className='min-h-10 w-full justify-center sm:w-auto sm:min-w-[148px]' asChild>
                               <a href={client.link} target='_blank' rel='noreferrer'>
                                 <IconDownload className='size-4' />
                                 {client.primary}
                               </a>
+                            </Button>
+                          ) : (
+                            <Button className='min-h-10 w-full justify-center sm:w-auto sm:min-w-[148px]' disabled>
+                              <IconDownload className='size-4' />
+                              下载地址待配置
                             </Button>
                           )}
                           {client.supportsScheme ? (
