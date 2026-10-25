@@ -44,38 +44,64 @@
 
 :root {
   --radius: 1rem;
-  --background: oklch(0.985 0.001 0);
-  --foreground: oklch(0.14 0.017 263.511);
-  --card: oklch(0.985 0.001 0);
-  --card-foreground: oklch(0.14 0.017 263.511);
-  --popover: oklch(0.985 0.001 0);
-  --popover-foreground: oklch(0.14 0.017 263.511);
-  --primary: oklch(0.14 0.017 263.511);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.68 0.048 208.577);
-  --secondary-foreground: oklch(0.985 0.001 0);
-  --muted: oklch(0.925 0.001 0);
-  --muted-foreground: oklch(0.6 0.001 0);
-  --accent: oklch(0.961 0.001 0);
-  --accent-foreground: oklch(0.14 0.017 263.511);
-  --destructive: oklch(0.527 0.216 28.306);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.295 0.085 259.422);
-  --chart-2: oklch(0.436 0.093 243.039);
-  --chart-3: oklch(0.68 0.048 208.577);
-  --chart-4: oklch(0.786 0.025 209.805);
-  --chart-5: oklch(0.913 0.022 136.599);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.14 0.017 263.511);
-  --sidebar-primary: oklch(0.14 0.017 263.511);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+
+  /* 基础背景与文字 */
+  --background: #F5F7F8;
+  --foreground: #202A35;
+
+  /* 卡片 */
+  --card: #FFFFFF;
+  --card-foreground: #202A35;
+
+  /* 弹出菜单 */
+  --popover: #FFFFFF;
+  --popover-foreground: #202A35;
+
+  /* 主色调：罗德岛深蓝灰 */
+  --primary: #202A35;
+  --primary-foreground: #FFFFFF;
+
+  /* 强调色：罗德岛冷青蓝 */
+  --secondary: #65B9C7;
+  --secondary-foreground: #111923;
+
+  /* 次要文字与背景 */
+  --muted: #E9EEF0;
+  --muted-foreground: #647481;
+
+  /* 鼠标悬停与选中状态 */
+  --accent: #E5F2F4;
+  --accent-foreground: #202A35;
+
+  /* 危险操作 */
+  --destructive: #D94B4B;
+
+  /* 边框与输入框 */
+  --border: #DCE4E8;
+  --input: #DCE4E8;
+  --ring: #65B9C7;
+
+  /* 数据图表 */
+  --chart-1: #202A35;
+  --chart-2: #365B70;
+  --chart-3: #65B9C7;
+  --chart-4: #A3D5DD;
+  --chart-5: #D7E9EC;
+
+  /* 侧边栏 */
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #202A35;
+  --sidebar-primary: #202A35;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #E5F2F4;
+  --sidebar-accent-foreground: #202A35;
+  --sidebar-border: #DCE4E8;
+  --sidebar-ring: #65B9C7;
 }
+
+
+
+修改方法
 
 * {
   @apply border-border;
@@ -115,36 +141,75 @@ code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
 }
 
+
 .dark {
-  --background: oklch(0.14 0.017 263.511);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.14 0.017 263.511);
-  --card-foreground: oklch(0.985 0.001 0);
-  --popover: oklch(0.269 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.985 0.001 0);
-  --primary-foreground: oklch(0.14 0.017 263.511);
-  --secondary: oklch(0.68 0.048 208.577);
-  --secondary-foreground: oklch(0.985 0.001 0);
-  --muted: oklch(0.321 0.001 0);
-  --muted-foreground: oklch(0.767 0.001 0);
-  --accent: oklch(0.321 0.001 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.668 0.219 24.606);
-  --border: oklch(0.321 0.001 0 / 70%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.295 0.085 259.422);
-  --chart-2: oklch(0.436 0.093 243.039);
-  --chart-3: oklch(0.68 0.048 208.577);
-  --chart-4: oklch(0.913 0.022 136.599);
-  --chart-5: oklch(0.985 0.001 0);
-  --sidebar: oklch(0.14 0.017 263.511);
-  --sidebar-foreground: oklch(0.985 0.001 0);
-  --sidebar-primary: oklch(0.68 0.048 208.577);
-  --sidebar-primary-foreground: oklch(0.14 0.017 263.511);
-  --sidebar-accent: oklch(0.321 0.001 0);
-  --sidebar-accent-foreground: oklch(0.849 0.052 243.031);
-  --sidebar-border: oklch(0.321 0.001 0);
-  --sidebar-ring: oklch(0.321 0.001 0);
+  /* 基础背景与文字 */
+  --background: #111923;
+  --foreground: #F5F7F8;
+
+  /* 卡片 */
+  --card: #1B2632;
+  --card-foreground: #F5F7F8;
+
+  /* 弹出菜单 */
+  --popover: #202A35;
+  --popover-foreground: #F5F7F8;
+
+  /* 主色调：冷青蓝 */
+  --primary: #65B9C7;
+  --primary-foreground: #111923;
+
+  /* 次要强调色 */
+  --secondary: #65B9C7;
+  --secondary-foreground: #111923;
+
+  /* 次要文字与背景 */
+  --muted: #273542;
+  --muted-foreground: #A1B0BD;
+
+  /* 鼠标悬停与选中状态 */
+  --accent: #263D49;
+  --accent-foreground: #E5F7FA;
+
+  /* 危险操作 */
+  --destructive: #F06B6B;
+
+  /* 边框与输入框 */
+  --border: #344553;
+  --input: #344553;
+  --ring: #65B9C7;
+
+  /* 数据图表 */
+  --chart-1: #65B9C7;
+  --chart-2: #468BA1;
+  --chart-3: #A3D5DD;
+  --chart-4: #D7E9EC;
+  --chart-5: #365B70;
+
+  /* 侧边栏 */
+  --sidebar: #111923;
+  --sidebar-foreground: #F5F7F8;
+  --sidebar-primary: #65B9C7;
+  --sidebar-primary-foreground: #111923;
+  --sidebar-accent: #263D49;
+  --sidebar-accent-foreground: #E5F7FA;
+  --sidebar-border: #344553;
+  --sidebar-ring: #65B9C7;
+}
+
+
+/* Rhodes Island - Dark Background */
+html.dark body,
+body.dark {
+  background-image:
+    radial-gradient(
+      circle at top left,
+      color-mix(in oklab, var(--secondary) 10%, transparent),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at top right,
+      color-mix(in oklab, var(--chart-2) 8%, transparent),
+      transparent 30%
+    );
 }
