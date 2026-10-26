@@ -1,17 +1,6 @@
-‎src/pages/node-monitor-page.tsx‎
-+86
--83
-Lines changed: 86 additions & 83 deletions
-Original file line number	Diff line number	Diff line change
-@@ -1,92 +1,95 @@
-import { useEffect, useState } from 'react';
+‎import { useEffect, useState } from 'react';
 import { fetchKomariNodes, type KomariNode } from '@/lib/api/services/node-monitor';
 
-import { Activity, Cpu, HardDrive, MemoryStick, Network, RefreshCw, Server } from 'lucide-react'
-import { PageHeader } from '@/components/page-header'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 const INTERVAL_MS = 10_000;
 const bytes = (v?: number | null) => {
   if (v == null || !Number.isFinite(v)) return '—';
@@ -36,48 +25,12 @@ const getError = (error: unknown) => {
   return error instanceof Error ? error.message : '获取节点监控数据失败';
 };
 
-export function NodeMonitorPage() {
-  return (
-    <div className="space-y-8">
-      <PageHeader
-        badge="节点监控"
-        title="服务器实时监控"
-        actions={
-          <Badge variant="outline">
-            Komari Monitor
-          </Badge>
-        }
-      />
 export default function NodeMonitorPage() {
   const [nodes, setNodes] = useState<KomariNode[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [updatedAt, setUpdatedAt] = useState<Date | null>(null);
 
-      <div className="px-4 lg:px-6">
-        <div className="grid gap-4 md:grid-cols-3">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-sm">
-                <Server className="size-4" />
-                授权节点
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="text-3xl font-semibold">
-              --
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-sm">
-                <Activity className="size-4" />
-                在线节点
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="text-3xl font-semibold">
-              --
-            </CardContent>
-          </Card>
   useEffect(() => {
     let active = true;
     let controller: AbortController | null = null;
@@ -103,18 +56,6 @@ export default function NodeMonitorPage() {
     return () => { active = false; if (timer) clearTimeout(timer); controller?.abort(); };
   }, []);
 
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-sm">
-                <Network className="size-4" />
-                离线节点
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="text-3xl font-semibold">
-              --
-            </CardContent>
-          </Card>
-        </div>
   const online = nodes.filter(n => n.online).length;
   return (
     <div className="space-y-6 p-4 md:p-6">
@@ -122,30 +63,6 @@ export default function NodeMonitorPage() {
         <div><h1 className="text-2xl font-semibold">节点监控</h1><p className="text-sm text-muted-foreground">仅显示当前套餐授权的 Komari 节点 · 约每 10 秒刷新</p></div>
         <span className="text-xs text-muted-foreground">{updatedAt ? `上次更新：${updatedAt.toLocaleTimeString('zh-CN')}` : '尚未更新'}</span>
       </div>
-      <div className="px-4 lg:px-6">
-        <Card>
-          <CardHeader>
-            <CardTitle>节点监控列表</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex flex-col items-center justify-center gap-4 rounded-xl border border-dashed p-10 text-center">
-              <Server className="size-10 text-muted-foreground" />
-              <div className="text-lg font-medium">
-                Komari 监控接口尚未启用
-              </div>
-              <p className="max-w-md text-sm text-muted-foreground">
-                页面已准备就绪。后续将通过 XBoard 插件读取当前套餐授权的服务器监控数据。
-              </p>
-              <div className="flex flex-wrap justify-center gap-3 text-xs text-muted-foreground">
-                <span className="flex items-center gap-1"><Cpu className="size-4" />CPU</span>
-                <span className="flex items-center gap-1"><MemoryStick className="size-4" />内存</span>
-                <span className="flex items-center gap-1"><HardDrive className="size-4" />磁盘</span>
-                <span className="flex items-center gap-1"><RefreshCw className="size-4" />实时刷新</span>
-              </div>
-              <Button variant="outline" disabled>
-                <RefreshCw className="size-4" />
-                刷新监控数据
-              </Button>
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
         {([['授权节点', nodes.length], ['在线节点', online], ['离线节点', nodes.length - online]] as const).map(([label, value]) => (
           <div key={label} className="rounded-xl border bg-card p-5"><div className="text-sm text-muted-foreground">{label}</div><div className="mt-2 text-3xl font-semibold">{value}</div></div>
@@ -161,8 +78,6 @@ export default function NodeMonitorPage() {
               <div className="min-w-0"><h2 className="break-words font-semibold">{n.name}</h2><div className="mt-1 break-all text-xs text-muted-foreground">{n.uuid}</div></div>
               <span className={`shrink-0 rounded-full px-2 py-1 text-xs ${n.online ? 'bg-green-500/10 text-green-600 dark:text-green-400' : 'bg-red-500/10 text-red-600 dark:text-red-400'}`}>{n.online ? '在线' : '离线'}</span>
             </div>
-          </CardContent>
-        </Card>
             <dl className="mt-5 grid grid-cols-2 gap-x-4 gap-y-4 text-sm">
               <div><dt className="text-muted-foreground">CPU</dt><dd className="mt-1 font-medium">{percent(n.cpu)}</dd></div>
               <div><dt className="text-muted-foreground">内存</dt><dd className="mt-1 font-medium">{percent(n.ram_total && n.ram != null ? n.ram / n.ram_total * 100 : null)}</dd><dd className="text-xs text-muted-foreground">{usage(n.ram, n.ram_total)}</dd></div>
@@ -176,6 +91,5 @@ export default function NodeMonitorPage() {
         ))}
       </div>
     </div>
-  )
   );
 }
