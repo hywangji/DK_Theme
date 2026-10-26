@@ -1,4 +1,4 @@
-‎import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { fetchKomariNodes, type KomariNode } from '@/lib/api/services/node-monitor';
 
 const INTERVAL_MS = 10_000;
