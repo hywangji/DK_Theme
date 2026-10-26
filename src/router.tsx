@@ -11,6 +11,7 @@ const KnowledgePage = lazy(() => import('@/pages/knowledge-page').then((module) 
 const LoginPage = lazy(() => import('@/pages/login-page').then((module) => ({ default: module.LoginPage })));
 const NodeStatusPage = lazy(() => import('@/pages/node-status-page').then((module) => ({ default: module.NodeStatusPage })));
 const NodeMonitorPage = lazy(() => import('@/pages/node-monitor-page'));
+const OrdersPage = lazy(() => import('@/pages/orders-page').then((module) => ({ default: module.OrdersPage })));
 const ForgotPasswordPage = lazy(() => import('@/pages/forgot-password-page').then((module) => ({ default: module.ForgotPasswordPage })));
 const RegisterPage = lazy(() => import('@/pages/register-page').then((module) => ({ default: module.RegisterPage })));
 const PlansPage = lazy(() => import('@/pages/plans-page').then((module) => ({ default: module.PlansPage })));
