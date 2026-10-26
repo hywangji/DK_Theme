@@ -10,6 +10,7 @@ const InvitePage = lazy(() => import('@/pages/invite-page').then((module) => ({ 
 const KnowledgePage = lazy(() => import('@/pages/knowledge-page').then((module) => ({ default: module.KnowledgePage })));
 const LoginPage = lazy(() => import('@/pages/login-page').then((module) => ({ default: module.LoginPage })));
 const NodeStatusPage = lazy(() => import('@/pages/node-status-page').then((module) => ({ default: module.NodeStatusPage })));
+const NodeMonitorPage = lazy(() => import('@/pages/node-monitor-page').then((module) => ({ default: module.NodeMonitorPage })));
 const OrdersPage = lazy(() => import('@/pages/orders-page').then((module) => ({ default: module.OrdersPage })));
 const ForgotPasswordPage = lazy(() => import('@/pages/forgot-password-page').then((module) => ({ default: module.ForgotPasswordPage })));
 const RegisterPage = lazy(() => import('@/pages/register-page').then((module) => ({ default: module.RegisterPage })));
@@ -43,6 +44,7 @@ export function AppRouter() {
         <Route path='/clients' element={<ClientsPage />} />
         <Route path='/plans' element={<PlansPage />} />
         <Route path='/node-status' element={<NodeStatusPage />} />
+        <Route path='/node-monitor' element={<NodeMonitorPage />} />
         <Route path='/orders' element={<OrdersPage />} />
         <Route path='/invite' element={<InvitePage />} />
         <Route path='/tickets' element={<TicketsPage />} />
