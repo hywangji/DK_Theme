@@ -75,7 +75,7 @@ export default function NodeMonitorPage() {
         {nodes.map(n => (
           <section key={n.uuid} className="rounded-xl border bg-card p-5 shadow-sm">
             <div className="flex items-start justify-between gap-3">
-              <div className="min-w-0"><h2 className="break-words font-semibold">{n.name}</h2><div className="mt-1 break-all text-xs text-muted-foreground">{n.uuid}</div></div>
+              <div className="min-w-0"><h2 className="break-words font-semibold">{n.name}</h2></div>
               <span className={`shrink-0 rounded-full px-2 py-1 text-xs ${n.online ? 'bg-green-500/10 text-green-600 dark:text-green-400' : 'bg-red-500/10 text-red-600 dark:text-red-400'}`}>{n.online ? '在线' : '离线'}</span>
             </div>
             <dl className="mt-5 grid grid-cols-2 gap-x-4 gap-y-4 text-sm">
