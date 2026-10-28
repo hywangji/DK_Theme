@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 190" preserveAspectRatio="xMidYMid meet">
+<g fill="#75bde9">
+<!-- pointed ears and round back-of-head, no facial features -->
+<path d="M48 76 Q43 47 49 22 L76 42 Q99 35 123 43 L150 22 Q157 49 151 76 Q153 94 141 106 Q159 132 155 156 Q151 176 125 180 L75 180 Q48 177 44 157 Q39 131 57 106 Q44 94 48 76Z"/>
+<!-- tail curls to the right -->
+<path d="M142 159 Q165 174 182 153 Q192 141 188 126 Q185 113 175 112 Q166 112 164 120" fill="none" stroke="#75bde9" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+<ellipse cx="70" cy="177" rx="19" ry="5"/><ellipse cx="127" cy="177" rx="19" ry="5"/>
+</g>
+<g fill="none" stroke="#75bde9" stroke-width="2.8" stroke-linecap="round" opacity=".9"><path d="M49 91 L30 85 M49 98 L27 99 M151 91 L169 85 M151 98 L171 99"/></g>
+</svg>
