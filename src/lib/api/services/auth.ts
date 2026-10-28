@@ -15,7 +15,7 @@ export const registerSchema = z.object({
   email_code: z.string().min(4, '请输入邮箱验证码'),
   password: z.string().min(6, '密码至少 6 位'),
   confirmPassword: z.string().min(6, '请再次输入密码'),
-  invite_code: z.string().optional(),
+  invite_code: z.string().trim().min(1, '请输入邀请码'),
 }).refine((data) => data.password === data.confirmPassword, {
   message: '两次输入的密码不一致',
   path: ['confirmPassword'],

@@ -1,0 +1,60 @@
+/* V21.18: mobile showcase uses the SAME complete art as desktop.
+   No secondary welcome typography, no enlarged/cropped inset artwork.
+   This file loads LAST to supersede legacy mobile showcase overrides. */
+@media (max-width:800px) {
+  .anime-root.anime-layout-showcase .anime-showcase-built-in-hero {
+    position:relative!important;
+    display:block!important;
+    width:100%!important;
+    max-width:2560px!important;
+    height:auto!important;
+    min-height:0!important;
+    max-height:none!important;
+    aspect-ratio:2560 / 960!important;
+    box-sizing:border-box!important;
+    padding:0!important;
+    margin:0 auto!important;
+    overflow:visible!important;
+    isolation:isolate!important;
+    background-color:#f1fffc!important;
+    background-image:url('/showcase/hero-v213.webp')!important;
+    background-size:100% 100%!important;
+    background-position:center top!important;
+    background-repeat:no-repeat!important;
+  }
+  .anime-root.anime-layout-showcase .anime-showcase-built-in-hero .anime-hero-content {
+    display:none!important;
+  }
+  .anime-root.anime-layout-showcase .anime-showcase-built-in-hero::before {
+    display:none!important;
+    content:none!important;
+  }
+  .anime-root.anime-layout-showcase .anime-showcase-built-in-hero::after {
+    content:""!important;
+    display:block!important;
+    position:absolute!important;
+    z-index:2!important;
+    pointer-events:none!important;
+    top:auto!important;
+    right:0!important;
+    bottom:-1px!important;
+    left:0!important;
+    width:100%!important;
+    height:clamp(28px,9vw,65px)!important;
+    margin:0!important;
+    aspect-ratio:auto!important;
+    background:linear-gradient(to bottom,rgba(241,255,252,0) 0%,rgba(241,255,252,.55) 55%,#f1fffc 100%)!important;
+    transform:none!important;
+  }
+  /* Only a very soft white halo behind the SMALL brand, not the hero lettering. */
+  .anime-root.anime-layout-showcase .anime-nav .anime-brand::before {
+    content:""!important;
+    display:block!important;
+    inset:-4px -10px -4px -7px!important;
+    background:radial-gradient(ellipse at center,rgba(255,255,255,.35),rgba(255,255,255,.15) 48%,rgba(255,255,255,0) 80%)!important;
+    filter:blur(9px)!important;
+  }
+  .anime-root.anime-layout-showcase .anime-showcase-content {
+    background:linear-gradient(180deg,#f1fffc 0%,#e7f9ff 65%,#e9fbfc 100%)!important;
+  }
+}

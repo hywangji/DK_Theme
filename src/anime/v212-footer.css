@@ -1,0 +1,12 @@
+/* V21.12: single source of truth for showcase footer. Decorative assets are actual DOM elements. */
+.anime-layout-showcase .anime-footer{position:relative!important;isolation:isolate!important;box-sizing:border-box!important;flex-shrink:0!important;height:172px!important;min-height:172px!important;margin:0!important;padding:78px 16px 18px!important;overflow:hidden!important;background:#e9fbff!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:flex-end!important;gap:4px!important}
+.anime-layout-showcase .anime-showcase-wave{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;background:url('/showcase/footer-v219-wave.svg') center bottom / 100% 100% no-repeat!important;z-index:0!important;pointer-events:none!important}
+.anime-layout-showcase .anime-footer::before,.anime-layout-showcase .anime-footer::after,.anime-layout-showcase .anime-showcase-wave::before,.anime-layout-showcase .anime-showcase-wave::after{content:none!important;display:none!important}
+.anime-layout-showcase .anime-footer-art{position:absolute;inset:0;z-index:1;pointer-events:none}
+.anime-layout-showcase .anime-footer-note{position:absolute;display:block;width:clamp(26px,2.5vw,44px);height:clamp(26px,2.5vw,44px);object-fit:contain;opacity:.96}
+.anime-layout-showcase .note-one{left:4%;top:31%;transform:rotate(-12deg)}
+.anime-layout-showcase .note-two{left:35%;top:24%;transform:rotate(9deg)}
+.anime-layout-showcase .note-three{right:20%;top:32%;transform:rotate(-10deg)}
+.anime-layout-showcase .anime-footer-cat{position:absolute;right:clamp(20px,5vw,110px);bottom:5px;width:clamp(112px,8.5vw,155px);height:auto;max-height:95%;object-fit:contain;object-position:bottom;opacity:.98}
+.anime-layout-showcase .anime-footer-copyright,.anime-layout-showcase .anime-footer-links{position:relative!important;z-index:2!important;background:transparent!important;color:#285987!important;text-shadow:0 1px 3px #fff!important;padding:0 5px!important;line-height:1.4!important}
+@media(max-width:800px){.anime-layout-showcase .anime-footer{height:150px!important;min-height:150px!important;padding:65px 70px 15px 12px!important}.anime-layout-showcase .anime-footer-cat{right:6px;width:100px}.anime-layout-showcase .anime-footer-note{width:28px;height:28px}.anime-layout-showcase .note-two{left:40%}.anime-layout-showcase .note-three{right:26%}}

@@ -34,6 +34,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setUser(nextUser);
         setSubscribe(nextSubscribe);
         setToken(currentToken);
+      } catch {
+        // Expired sessions should not prevent the route from rendering its own 403 page.
       } finally {
         setHydrated(true);
       }

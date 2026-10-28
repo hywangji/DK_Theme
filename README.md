@@ -128,3 +128,4 @@ MIT
 ## 说明
 
 本仓库仅提供前端主题工程，不包含任何生产后端凭据、账号数据或私有服务信息。
+V21.23 Preview KV configuration verification.
