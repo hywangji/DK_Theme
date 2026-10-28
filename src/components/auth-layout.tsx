@@ -48,7 +48,10 @@ export function AuthLayout() {
         </div>
 
         <div className='flex flex-1 items-center justify-center'>
-          <div className='w-full max-w-md'>
+          <div
+            className='w-full max-w-md'
+            style={showDesktopArtwork ? { transform: 'translateX(max(0px, calc(25vw - 390px)))' } : undefined}
+          >
             <RouteChunkErrorBoundary resetKey={resetKey}>
               <Suspense fallback={<AuthLayoutOutletFallback />}>
                 <Outlet context={{ setArtworkScene }} />

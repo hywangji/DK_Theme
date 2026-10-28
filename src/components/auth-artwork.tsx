@@ -27,7 +27,13 @@ export function AuthArtwork({ scene }: { scene: AuthArtworkScene }) {
       {/* 右侧仍占原来一半宽度，只缩小插画自身，与左侧表单形成视觉平衡。 */}
       <div
         className='relative shrink-0'
-        style={{ width: 'min(72%, 540px)', maxHeight: '78vh', aspectRatio: '1122 / 1402' }}
+        style={{
+          width: 'min(72%, 540px)',
+          maxHeight: '78vh',
+          aspectRatio: '1122 / 1402',
+          // 与左侧表单对称向中心靠拢；1560px 以上中心间距始终保持在 780px。
+          transform: 'translateX(min(0px, calc(390px - 25vw)))',
+        }}
       >
         {/* 六张图保持同尺寸叠放，切换状态时淡入淡出，避免尺寸跳动。 */}
         {scenes.map((key) => (
