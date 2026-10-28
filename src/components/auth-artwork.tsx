@@ -13,7 +13,7 @@ const artwork: Record<AuthArtworkScene, { src: string; label: string }> = {
 const scenes = Object.keys(artwork) as AuthArtworkScene[]
 
 // 漫画插画是白底图片：先缩小并留白，再借助混合模式与边缘遮罩柔和融入页面底色。
-// 遮罩只作用于插画，周围页面背景保持不变，浅色/深色模式均兼容。
+// 遮罩只作用于插画，周围页面背景保持不变。深色模式保留原画正片明暗，避免反相黑底。
 const softEdgeMask =
   'radial-gradient(ellipse 68% 68% at 50% 50%, black 54%, rgba(0,0,0,0.96) 68%, rgba(0,0,0,0.5) 85%, transparent 100%)'
 
@@ -46,7 +46,7 @@ export function AuthArtwork({ scene }: { scene: AuthArtworkScene }) {
             decoding='async'
             fetchPriority={key === scene ? 'high' : 'low'}
             style={{ WebkitMaskImage: softEdgeMask, maskImage: softEdgeMask }}
-            className={`absolute inset-0 block h-full w-full select-none object-contain object-center mix-blend-multiply transition-opacity duration-300 ease-out motion-reduce:transition-none dark:invert dark:mix-blend-screen ${scene === key ? 'opacity-100' : 'opacity-0'}`}
+            className={`absolute inset-0 block h-full w-full select-none object-contain object-center mix-blend-multiply transition-opacity duration-300 ease-out motion-reduce:transition-none dark:mix-blend-normal dark:brightness-[0.82] ${scene === key ? 'opacity-100' : 'opacity-0'}`}
           />
         ))}
       </div>
