@@ -1,0 +1,20 @@
+/* V21.6: authoritative showcase layout fixes, isolated from classic theme. */
+.anime-root.anime-layout-showcase{min-height:100vh!important;min-height:100dvh!important;display:flex!important;flex-direction:column!important;overflow-x:clip!important;overflow-y:visible!important;background:#e9fbfc!important}
+.anime-layout-showcase .anime-nav{position:absolute!important;top:0!important;left:0!important;right:0!important;z-index:20!important;min-height:74px!important;background:linear-gradient(180deg,rgba(238,252,255,.65),rgba(238,252,255,0))!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+.anime-layout-showcase .anime-brand-name{background:linear-gradient(95deg,#153f83,#00b9a9)!important;background-clip:text!important;-webkit-background-clip:text!important}
+@media(min-width:801px){
+ .anime-layout-showcase .anime-showcase-built-in-hero{width:min(100%,2560px)!important;aspect-ratio:8/3!important;height:auto!important;min-height:0!important;margin:0 auto!important;background-size:contain!important;background-position:center top!important;background-repeat:no-repeat!important}
+ .anime-layout-showcase .anime-showcase-built-in-hero .anime-hero-content{left:17%!important;bottom:10%!important}
+}
+.anime-layout-showcase .anime-showcase-content{flex:0 0 auto!important;background:linear-gradient(180deg,#f1fffc 0%,#e7f9ff 65%,#e9fbfc 100%)!important}
+.anime-layout-showcase .anime-footer{margin-top:auto!important;flex-shrink:0!important;min-height:160px!important;height:auto!important;padding:75px 16px 20px!important;overflow:hidden!important;background:#d4f4ff!important;isolation:isolate!important}
+.anime-layout-showcase .anime-showcase-wave{inset:0!important;width:100%!important;height:100%!important;background:url('/showcase/footer-v216-wave.svg') center bottom/100% 100% no-repeat!important;z-index:-1!important}
+.anime-layout-showcase .anime-footer::before{content:''!important;display:block!important;position:absolute!important;right:max(4%,calc((100% - 1350px)/2))!important;bottom:0!important;width:clamp(85px,9vw,135px)!important;height:clamp(85px,9vw,135px)!important;background:url('/showcase/footer-v216-cat.svg') center bottom/contain no-repeat!important;z-index:1!important;opacity:.95!important}
+.anime-layout-showcase .anime-footer::after{display:none!important}
+.anime-layout-showcase .anime-footer-copyright,.anime-layout-showcase .anime-footer-links{background:transparent!important;color:#285987!important;text-shadow:0 1px 3px #fff!important}
+@media(max-width:800px){
+ .anime-layout-showcase .anime-nav{min-height:62px!important;padding-top:12px!important;padding-bottom:12px!important}
+ .anime-layout-showcase .anime-showcase-built-in-hero{padding-top:85px!important}
+ .anime-layout-showcase .anime-footer{min-height:140px!important;padding:70px 70px 18px 12px!important}
+ .anime-layout-showcase .anime-footer::before{right:3px!important;width:76px!important;height:76px!important}
+}

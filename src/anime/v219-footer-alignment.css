@@ -1,0 +1,47 @@
+/* V21.19 — Footer punctuation and true horizontal centering.
+   Scoped to showcase layout; ornaments and wave are unchanged. */
+.anime-layout-showcase .anime-footer-links::before,
+.anime-layout-showcase .anime-footer-links::after {
+  content: '·';
+  display: inline-block;
+  flex: 0 0 auto;
+  color: #285987;
+  margin: 0 6px;
+  line-height: inherit;
+}
+.anime-layout-showcase .anime-footer-links {
+  display: inline-flex !important;
+  flex-wrap: wrap;
+  justify-content: center !important;
+  align-items: center !important;
+  width: auto;
+  max-width: 100%;
+  margin-inline: auto !important;
+  text-align: center !important;
+}
+.anime-layout-showcase .anime-footer-copyright {
+  display: block;
+  margin-inline: auto !important;
+  text-align: center !important;
+}
+@media (max-width: 800px) {
+  .anime-layout-showcase .anime-footer {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    align-items: center !important;
+  }
+  .anime-layout-showcase .anime-footer-copyright,
+  .anime-layout-showcase .anime-footer-links {
+    position: relative;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+  }
+}
+
+/* V21.20: the outer leading dot is drawn by the links container.
+   Suppress the legacy link separator on its first anchor, including desktop. */
+.anime-layout-showcase .anime-footer-links > a:first-of-type::before {
+  content: none !important;
+  display: none !important;
+}

@@ -1,0 +1,7 @@
+/* V21.14 footer: fixed-aspect independent ornaments, no stretch */
+.anime-layout-showcase .anime-footer-note{object-fit:contain!important;opacity:.94!important;transform-origin:center!important}
+.anime-layout-showcase .note-one{left:3%!important;top:25%!important;width:45px!important;height:45px!important;transform:rotate(-13deg)!important}
+.anime-layout-showcase .note-two{left:35%!important;top:20%!important;width:49px!important;height:43px!important;transform:rotate(8deg)!important}
+.anime-layout-showcase .note-three{right:19%!important;top:29%!important;width:47px!important;height:42px!important;transform:rotate(-12deg)!important}
+.anime-layout-showcase .anime-footer-cat{right:clamp(20px,5vw,95px)!important;bottom:5px!important;width:clamp(120px,8.5vw,160px)!important;height:auto!important;max-height:calc(100% - 10px)!important;opacity:1!important;object-fit:contain!important;object-position:bottom!important}
+@media(max-width:800px){.anime-layout-showcase .note-one{width:34px!important;height:34px!important}.anime-layout-showcase .note-two{width:37px!important;height:35px!important}.anime-layout-showcase .note-three{width:36px!important;height:34px!important}.anime-layout-showcase .anime-footer-cat{width:105px!important;right:4px!important}}
