@@ -2,7 +2,8 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ArrowRight, LoaderCircle } from 'lucide-react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useOutletContext } from 'react-router-dom'
+import type { AuthArtworkScene } from '@/components/auth-artwork'
 import { AuthEmailInput } from '@/components/auth-email-input'
 import { AuthPasswordInput } from '@/components/auth-password-input'
 import { Button } from '@/components/ui/button'
@@ -36,6 +37,7 @@ function getErrorMessage(error: unknown, fallback: string) {
 export function LoginPage() {
   const navigate = useNavigate()
   const { login } = useAuth()
+  const { setArtworkScene } = useOutletContext<{ setArtworkScene: (scene: AuthArtworkScene) => void }>()
   const [error, setError] = useState<string | null>(null)
   const [pending, setPending] = useState(false)
 
@@ -52,8 +54,12 @@ export function LoginPage() {
     setError(null)
     try {
       await login(values)
+      setArtworkScene('success')
+      // 给用户留出欣赏登录成功插画的时间，再跳转用户中心。
+      await new Promise<void>((resolve) => window.setTimeout(resolve, 1000))
       navigate('/dashboard')
     } catch (err) {
+      setArtworkScene('failure')
       setError(getErrorMessage(err, '登录失败，请检查接口配置'))
     } finally {
       setPending(false)
@@ -73,7 +79,7 @@ export function LoginPage() {
 
         <Field>
           <FieldLabel htmlFor='email'>邮箱</FieldLabel>
-          <AuthEmailInput id='email' placeholder='you@example.com' autoComplete='email' {...form.register('email')} />
+          <AuthEmailInput id='email' placeholder='you@example.com' autoComplete='email' {...form.register('email')} onFocus={() => setArtworkScene('email')} />
           <FieldError errors={[form.formState.errors.email]} />
         </Field>
 
@@ -82,7 +88,7 @@ export function LoginPage() {
             <FieldLabel htmlFor='password'>密码</FieldLabel>
             <Link to='/forgot-password' className='ml-auto text-sm text-muted-foreground underline-offset-4 hover:text-primary hover:underline'>忘记密码？</Link>
           </div>
-          <AuthPasswordInput id='password' placeholder='••••••••' autoComplete='current-password' {...form.register('password')} />
+          <AuthPasswordInput id='password' placeholder='••••••••' autoComplete='current-password' {...form.register('password')} onFocus={() => setArtworkScene('password')} />
           <FieldError errors={[form.formState.errors.password]} />
         </Field>
 
