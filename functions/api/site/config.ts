@@ -45,7 +45,14 @@ export async function onRequestPut({request,env}:Context):Promise<Response>{
       const answer=await response.json() as {status?:string;data?:{is_login?:boolean;is_admin?:boolean}};
       authorized=answer.status==='success'&&answer.data?.is_login===true&&answer.data?.is_admin===true;
     }
-  }catch{return json({error:'管理员验证服务暂时不可用'},503)}
+  }catch(error){
+  console.error(
+    '[Site Config] XBoard admin verification failed:',
+    error instanceof Error ? error.name : 'UnknownError',
+    error instanceof Error ? error.message : String(error)
+  );
+  return json({error:'管理员验证服务暂时不可用'},503);
+}
   if(!authorized)return json({error:'当前账号没有管理员权限'},403);
   const length=Number(request.headers.get('Content-Length')||0);
   if(length>MAX_BYTES)return json({error:'配置超过 2 MB，请使用图片 URL 或内置素材'},413);
