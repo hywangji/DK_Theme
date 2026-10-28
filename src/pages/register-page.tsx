@@ -141,8 +141,9 @@ export function RegisterPage() {
         </Field>
 
         <Field>
-          <FieldLabel htmlFor='invite_code'>邀请码（可选）</FieldLabel>
-          <Input id='invite_code' placeholder='填写邀请码可绑定邀请关系' className='transition-all duration-200 focus-visible:border-primary/60 focus-visible:ring-primary/20 dark:focus-visible:border-primary/60 dark:focus-visible:ring-primary/20' {...form.register('invite_code')} />
+          <FieldLabel htmlFor='invite_code'>邀请码（必填）</FieldLabel>
+          <Input id='invite_code' placeholder='请输入邀请码' required className='transition-all duration-200 focus-visible:border-primary/60 focus-visible:ring-primary/20 dark:focus-visible:border-primary/60 dark:focus-visible:ring-primary/20' {...form.register('invite_code')} />
+          <FieldError errors={[form.formState.errors.invite_code]} />
         </Field>
 
         {error ? (
