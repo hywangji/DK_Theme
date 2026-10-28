@@ -39,7 +39,7 @@ export async function onRequestPut({request,env}:Context):Promise<Response>{
   try{
     const response=await fetch(`${apiBase}/api/v1/user/checkLogin`,{
       method:'GET',headers:{Authorization:token,Accept:'application/json'},
-      redirect:'error',signal:AbortSignal.timeout(10000),
+      redirect:'manual',signal:AbortSignal.timeout(10000),
     });
     if(response.ok){
       const answer=await response.json() as {status?:string;data?:{is_login?:boolean;is_admin?:boolean}};
