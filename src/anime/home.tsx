@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from 'react';import {Link} from 'react-router-dom';import {defaults,loadConfig,fetchPublishedConfig,type AnimeConfig} from './config';import './anime.css';import './v214.css';import './v216.css';import './v218.css';import './v212-footer.css';import './v213-footer.css';import './v218-mobile-hero.css';import './v219-footer-alignment.css';
+import React,{useEffect,useState} from 'react';import {Link} from 'react-router-dom';import {loadConfig,fetchPublishedConfig,type AnimeConfig} from './config';import './anime.css';import './v214.css';import './v216.css';import './v218.css';import './v212-footer.css';import './v213-footer.css';import './v218-mobile-hero.css';import './v219-footer-alignment.css';
 function AnimeDecor({c}:{c:AnimeConfig}){
  const effect=c.effect??(c.petals?'sakura':'none');
  const symbols:Record<string,string[]>={sakura:['🌸','✿','❀'],miku:['♫','♪','✦','♬'],stars:['✧','✦','⋆','✩'],butterfly:['🦋','✧','✦']};
