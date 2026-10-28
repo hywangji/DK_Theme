@@ -36,10 +36,16 @@ export function AuthLayout() {
   return (
     <div className={`grid min-h-screen ${showDesktopArtwork ? 'xl:grid-cols-2' : ''}`}>
       <div className='relative flex flex-col gap-5 px-5 py-6 md:gap-6 md:p-10'>
-        <div className='flex items-start justify-between gap-3 pr-0 md:block md:pr-16'>
+        <div className='flex items-start justify-between gap-3 md:block'>
           <div className='min-w-0 flex-1 md:flex-none'>
-            <div className='flex min-w-0 justify-start md:justify-start'>
-              <BrandLogo />
+            {/* 桌面端 Logo 与左侧登录表单共用宽度和偏移，避免宽屏时 Logo 贴边。 */}
+            <div className={showDesktopArtwork ? 'flex min-w-0 justify-center' : 'flex min-w-0 justify-start'}>
+              <div
+                className={showDesktopArtwork ? 'w-full max-w-md' : undefined}
+                style={showDesktopArtwork ? { transform: 'translateX(max(0px, calc(25vw - 390px)))' } : undefined}
+              >
+                <BrandLogo />
+              </div>
             </div>
           </div>
           <div className='shrink-0 md:absolute md:right-10 md:top-10 md:z-10'>
