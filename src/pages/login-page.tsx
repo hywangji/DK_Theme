@@ -56,7 +56,7 @@ export function LoginPage() {
       await login(values)
       setArtworkScene('success')
       // 给用户留出欣赏登录成功插画的时间，再跳转用户中心。
-      await new Promise<void>((resolve) => window.setTimeout(resolve, 1000))
+      await new Promise<void>((resolve) => window.setTimeout(resolve, 3000))
       navigate('/dashboard')
     } catch (err) {
       setArtworkScene('failure')
