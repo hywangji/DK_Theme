@@ -4,6 +4,9 @@ import { AppShell } from '@/components/app-shell';
 import { AuthLayout } from '@/components/auth-layout';
 import { useAuth } from '@/features/auth/auth-context';
 
+const AnimeHome = lazy(() => import('@/anime/home').then(m => ({ default: m.AnimeHome })));
+const AdminRoute = lazy(() => import('@/features/auth/admin-route').then(m => ({ default: m.AdminRoute })));
+const ErrorPage = lazy(() => import('@/pages/error-page').then(m => ({ default: m.ErrorPage })));
 const ClientsPage = lazy(() => import('@/pages/clients-page').then((module) => ({ default: module.ClientsPage })));
 const DashboardPage = lazy(() => import('@/pages/dashboard-page').then((module) => ({ default: module.DashboardPage })));
 const InvitePage = lazy(() => import('@/pages/invite-page').then((module) => ({ default: module.InvitePage })));
@@ -30,10 +33,10 @@ function ProtectedLayout() {
 }
 
 export function AppRouter() {
-  const { token } = useAuth();
-
   return (
     <Routes>
+      <Route path="/" element={<AnimeHome />} />
+      <Route path="/site-admin" element={<AdminRoute />} />
       <Route element={<AuthLayout />}>
         <Route path='/login' element={<LoginPage />} />
         <Route path='/forgot-password' element={<ForgotPasswordPage />} />
@@ -51,7 +54,7 @@ export function AppRouter() {
         <Route path='/knowledge' element={<KnowledgePage />} />
         <Route path='/settings' element={<SettingsPage />} />
       </Route>
-      <Route path='*' element={<Navigate to={token ? '/dashboard' : '/login'} replace />} />
+      <Route path='*' element={<ErrorPage status={404} />} />
     </Routes>
   );
 }

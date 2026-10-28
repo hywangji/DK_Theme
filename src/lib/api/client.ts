@@ -22,7 +22,8 @@ apiClient.interceptors.response.use(
   (error) => {
     if (error.response?.status === 401) {
       tokenStorage.clear();
-      window.location.href = '/login';
+      // Keep the requested /site-admin denial page instead of redirecting to /login.
+      if (window.location.pathname !== '/site-admin') window.location.href = '/login';
     }
     return Promise.reject(error);
   },
